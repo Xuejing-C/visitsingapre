@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>registration</title>
+        <link rel="stylesheet" href="css/register.css">
+		<!--import jquery-->
+		<script src="js/jquery-3.3.1.min.js"></script>
+
+		<script>
+			/*
+				Form validation:
+					1. username：word character, length 2 - 10
+					2. password: word character, length 8 - 20
+					3. email: email format, xxx@xxx.com
+					4. check code: not empty
+			 */
+			function checkUsername(){
+				var username = $("#username").val();
+				var reg_username = /^\w{2,10}$/;
+				var flag = reg_username.test(username);
+				if (flag){
+					$("#username").css("border","");
+				}else{
+					$("#username").css("border","1px solid red");
+				}
+				return flag;
+			}
+
+			function checkPassword(){
+				var password = $("#password").val();
+				var reg_password = /^\w{6,20}$/;
+				var flag = reg_password.test(password);
+				if (flag){
+					$("#password").css("border","");
+				}else{
+					$("#password").css("border","1px solid red");
+				}
+				return flag;
+			}
+
+			function checkEmail(){
+				var email = $("#email").val();
+				var reg_email = /^\w+@\w+\.com$/;
+				var flag = reg_email.test(email);
+				if (flag){
+					$("#email").css("border","");
+				}else{
+					$("#email").css("border","1px solid red");
+				}
+				return flag;
+			}
+
+			function checkCheckCode(){
+				var checkcode = $("#check").val();
+				var flag = false;
+				if (checkcode == undefined || checkcode == null || checkcode == ""){
+					$("#check").css("border","1px solid red");
+					flag = false;
+				}else{
+					$("#check").css("border","");
+					flag = true;
+				}
+				return flag;
+			}
+
+			$(function(){
+				$("#registerForm").submit(function (){
+					if (checkUsername() && checkPassword() && checkEmail() && checkCheckCode()){
+						//all validations pass, submit form data to server
+
+						$.post("registerUserServlet",$(this).serialize(),function (data){
+							if (data.flag) {
+								location.href="register_succeed.html";
+							} else {
+								$("#errorMsg").html(data.errorMsg);
+							}
+						});
+					}
+					return false;
+				});
+
+				$("#username").blur(checkUsername);
+				$("#password").blur(checkPassword);
+				$("#email").blur(checkEmail);
+				$("#check").blur(checkCheckCode);
+			});
+		</script>
+    </head>
+
+	<body>
+    	<div class="rg_layout">
+    		<div class="rg_form clearfix">
+    			<div class="rg_form_left">
+    				<p>USER REGISTRATION</p>
+    			</div>
+    			<div class="rg_form_center">
+					<div id="errorMsg" style="color:red;text-align: center"></div>
+					<!--registration form-->
+    				<form id="registerForm">
+						<input type="hidden" name="action" value="register">
+    					<table style="margin-top: 25px;">
+    						<tr>
+    							<td class="td_left">
+    								<label for="username">Username</label>
+    							</td>
+								<td class="td_center">
+									<label>*</label>
+								</td>
+    							<td class="td_right">
+    								<input type="text" id="username" name="username" placeholder="2 to 10 letters, numbers & underline">
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left">
+    								<label for="password">Password</label>
+    							</td>
+								<td class="td_center">
+									<label>*</label>
+								</td>
+    							<td class="td_right">
+    								<input type="password" id="password" name="password" placeholder="6 to 20 letters, numbers & underline">
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left">
+    								<label for="email">Email</label>
+    							</td>
+								<td class="td_center">
+									<label>*</label>
+								</td>
+    							<td class="td_right">
+    								<input type="text" id="email" name="email" placeholder="xxx@xxx.com">
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left">
+    								<label for="telephone">Telephone</label>
+    							</td>
+								<td class="td_center">
+								</td>
+    							<td class="td_right">
+    								<input type="text" id="telephone" name="telephone">
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left">
+    								<label for="gender">Gender</label>
+    							</td>
+								<td class="td_center">
+								</td>
+    							<td class="td_right gender">
+    								<input type="radio" id="gender" name="gender" value="Male" checked> Male
+    								<input type="radio" name="gender" value="Female"> Female
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left">
+    								<label for="birthday">Birthday</label>
+    							</td>
+								<td class="td_center">
+								</td>
+    							<td class="td_right">
+    								<input type="date" id="birthday" name="birthday">
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left">
+    								<label for="check">Check Code</label>
+    							</td>
+								<td class="td_center">
+									<label>*</label>
+								</td>
+    							<td class="td_right">
+    								<input type="text" id="check" name="check" class="check"
+										   style="width: 160px;padding-left: 12px;margin-left:14px;margin-right: 5px"
+										   placeholder="click picture to change">
+    								<img src="checkCodeServlet" height="32px" alt="" onclick="changeCheckCode(this)">
+									<script type="text/javascript">
+										function changeCheckCode(img) {
+											img.src="checkCodeServlet?time="+new Date().getTime();
+                                        }
+									</script>
+    							</td>
+    						</tr>
+    						<tr>
+    							<td class="td_left"> 
+    							</td>
+								<td class="td_center">
+								</td>
+    							<td class="td_right check"> 
+    								<input type="submit" class="submit" value="register">
+									<span id="msg" style="color: red;"></span>
+    							</td>
+    						</tr>
+    					</table>
+    				</form>
+    			</div>
+    			<div class="rg_form_right">
+    				<p>
+    					Already has an account?
+    					<a href="#">Log in now</a>
+    				</p>
+    			</div>
+    		</div>
+    	</div>
+    </body>
+</html>
