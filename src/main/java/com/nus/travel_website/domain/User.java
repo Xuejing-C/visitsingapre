@@ -9,8 +9,8 @@ public class User {
     private String telephone;
     private String birthday;
     private String gender;
-    private String status;
-    private String code;
+    private String status;  // activation status
+    private String code;  // activation code
 
     public User() {
     }
