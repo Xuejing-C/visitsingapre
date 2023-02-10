@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>login</title>
+		<link rel="stylesheet" type="text/css" href="css/header.css">
+		<link rel="stylesheet" type="text/css" href="css/login.css">
+		<!--import jquery-->
+		<script src="js/jquery-3.3.1.min.js"></script>
+
+		<script>
+			$(function () {
+				$.get("header.html",function (data) {
+					$("#header").html(data);
+				});
+			});
+		</script>
+
+		<script>
+			/*
+				Form validation:
+					1. email：email format, xxx@xxx.com
+					2. password: not empty
+					3. check code: not empty
+			 */
+			function checkEmail(){
+				var email = $("#email").val();
+				var reg_email = /^\w+@\w+\.com$/;
+				var flag = reg_email.test(email);
+				if (flag){
+					$("#email").css("border","");
+				}else{
+					$("#email").css("border","1px solid red");
+				}
+				return flag;
+			}
+
+			function checkPassword(){
+				var password = $("#password").val();
+				var flag = false;
+				if (password == undefined || password == null || password == ""){
+					$("#password").css("border","1px solid red");
+					flag = false;
+				}else{
+					$("#password").css("border","");
+					flag = true;
+				}
+				return flag;
+			}
+
+			function checkCheckCode(){
+				var checkcode = $("#check").val();
+				var flag = false;
+				if (checkcode == undefined || checkcode == null || checkcode == ""){
+					$("#check").css("border","1px solid red");
+					flag = false;
+				}else{
+					$("#check").css("border","");
+					flag = true;
+				}
+				return flag;
+			}
+
+			$(function () {
+				$("#btn_sub").click(function () {
+					if (checkPassword() && checkEmail() && checkCheckCode()) {
+						$.post("loginServlet", $("#loginForm").serialize(), function (data) {
+							if (data.flag) {
+								location.href = "index.html";
+							} else {
+								$("#errorMsg").html(data.errorMsg);
+							}
+						})
+					}
+				});
+
+				$("#email").blur(checkEmail);
+				$("#password").blur(checkPassword);
+				$("#check").blur(checkCheckCode);
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="header"></div>
+		<div id="login_wrap">
+			<div class="login_box">
+				<div class="title">
+					<span>Welcome to log in</span>
+				</div>
+				<div class="login_inner">
+					<div id="errorMsg" class="alert alert-danger" ></div>
+
+					<form id="loginForm" action="" method="post" accept-charset="utf-8">
+						<input type="hidden" name="action" value="login"/>
+						<input id="email" name="email" type="text" placeholder="Please enter email" autocomplete="off">
+						<input id="password" name="password" type="text" placeholder="Please enter password" autocomplete="off">
+						<div class="verify">
+							<input id="check" name="check" type="text" placeholder="Please enter check code" autocomplete="off">
+							<span><img src="checkCodeServlet" alt="" onclick="changeCheckCode(this)"></span>
+							<script type="text/javascript">
+								function changeCheckCode(img) {
+									img.src="checkCodeServlet?time="+new Date().getTime();
+								}
+							</script>
+						</div>
+						<div class="submit_btn">
+							<button type="button"  id="btn_sub">Login</button>
+						</div>
+					</form>
+					<div class="reg">Don't have an account? <a href="register.html;">Register now</a></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

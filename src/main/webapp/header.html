@@ -1,0 +1,31 @@
+<script>
+    $(function () {
+        $.get("getUsernameServlet", {}, function (data) {
+            var msg = "Welcome, " + data.username;
+            $("#span_username").html(msg);
+        });
+    });
+</script>
+
+<header id="header">
+    <div class="shortcut">
+        <!-- log out status  -->
+        <div class="login_out">
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </div>
+
+        <!-- log in status  -->
+        <div class="login">
+            <span id="span_username"></span>
+            <a href="myfavorite.html" class="collection">My Favorite</a>
+            <a href="javascript:location.href='exitServlet';">Log out</a>
+        </div>
+    </div>
+    <div class="header_wrap">
+        <div class="search">
+            <input name="" id="search_input"  type="text" placeholder="Please enter tourism" class="search_input" autocomplete="off">
+            <a href="javascript:;" id="search-button" class="search-button">search</a>
+        </div>
+    </div>
+</header>

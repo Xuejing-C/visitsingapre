@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         // save user info
         userDao.save(user);
         // send activation email
-        String content = "<a href='http://localhost/travel_website/activeUserServlet?code="
+        String content = "<a href='http://localhost:8080/travel_website/activeUserServlet?code="
                 +user.getCode()+"'>Click to activate your account on tourism info website</a>";
         MailUtils.sendMail(user.getEmail(),content,"Activation Email");
         return true;
@@ -36,5 +36,11 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public User login(User user) {
+        User u = userDao.findByEmailAndPassword(user.getEmail(),user.getPassword());
+        return u;
     }
 }

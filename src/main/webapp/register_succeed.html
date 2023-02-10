@@ -2,13 +2,23 @@
 <html lang="en">
     <head>
         <title>registration</title>
+        <link rel="stylesheet" type="text/css" href="css/header.css">
         <link rel="stylesheet" href="css/register.css">
 		<!--import jquery-->
 		<script src="js/jquery-3.3.1.min.js"></script>
+
+        <script>
+            $(function () {
+                $.get("header.html",function (data) {
+                    $("#header").html(data);
+                });
+            });
+        </script>
     </head>
     <body>
+        <div id="header"></div>
     	<div style="text-align:center;red:yellow;font-weight:bold;height:150px;padding-top:100px;font-size:30px;">
-    		<h4>Congratulation，registration succeeds!</h4>
+    		<h4>Congratulation, registration succeeds!</h4>
             <h4>Please log in to your registered email to activate your account.</h4>
             <h4>You can log in only after activation.</h4>
     	</div>
