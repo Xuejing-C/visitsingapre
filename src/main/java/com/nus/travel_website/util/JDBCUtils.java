@@ -15,7 +15,6 @@ public class JDBCUtils {
     private static DataSource ds;
 
     static {
-
         try {
             // 1. load property file
             Properties pro = new Properties();

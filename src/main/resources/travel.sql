@@ -1,13 +1,13 @@
 /*==============================================================*/
 /* create table                                          */
 /*==============================================================*/
-
+drop table if exists tab_user;
 drop table if exists tab_category;
+
 drop table if exists tab_favorite;
 drop table if exists tab_route;
 drop table if exists tab_route_img;
 drop table if exists tab_seller;
-drop table if exists tab_user;
 
 /*==============================================================*/
 /* Table: tab_user                                              */
@@ -29,17 +29,20 @@ create table tab_user
     unique key UK_user_code (code)
 );
 
-
 /*==============================================================*/
 /* Table: tab_category                                          */
 /*==============================================================*/
 create table tab_category
 (
     cid                  int not null auto_increment,
-    cname                varchar(100) not null,
+    cname                varchar(50) not null,
     primary key (cid),
-    unique key AK_nq_categoryname (cname)
+    unique key UK_category_categoryname (cname)
 );
+insert  into tab_category(cid,cname)
+values (5,'Culture'),(4,'History'),(7,'Nature'),(6,'Leisure'),(2,'Arts'),(1,'Neighbourhoods'),(3,'Architecture');
+values 'Neighbourhoods', 'Arts', 'Architecture', 'History', 'Culture', 'Leisure', 'Nature';
+
 
 /*==============================================================*/
 /* Table: tab_favorite                                          */

@@ -1,9 +1,24 @@
 <script>
     $(function () {
+        // acquire login username
         $.get("getUsernameServlet", {}, function (data) {
             var msg = "Welcome, " + data.username;
             $("#span_username").html(msg);
         });
+
+        // acquire category data
+        $.get("category/findCategory", {}, function (data) {
+            // data: [{cid:1,cname:xxx},{},{}...]
+            var lis = '<li><a href="index.html">Homepage</a></li>';
+
+            for (let i = 0; i < data.length; i++) {
+                var li = '<li><a href="viewpoint_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>';
+                lis += li;
+            }
+            lis += '<li><a href="favorite_rank.html">Favorite Rank</a></li>';
+            $("#category").html(lis);
+        });
+
     });
 </script>
 
@@ -27,5 +42,8 @@
             <input name="" id="search_input"  type="text" placeholder="Please enter tourism" class="search_input" autocomplete="off">
             <a href="javascript:;" id="search-button" class="search-button">search</a>
         </div>
+    </div>
+    <div class="nav">
+        <ul id="category" class="nav_ul"></ul>
     </div>
 </header>
