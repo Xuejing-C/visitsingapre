@@ -24,8 +24,6 @@ public class CheckCodeServlet extends HttpServlet {
 		// get check code & store it in Session
 		String checkCode = getCheckCode();
 		request.getSession().setAttribute("CHECKCODE_SERVER",checkCode);
-		System.out.println(request.getSession().getAttribute("CHECKCODE_SERVER"));
-
 
 		// draw image
 		int width = 80;

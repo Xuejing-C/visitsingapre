@@ -2,20 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>route list</title>
+    <title>viewpoint list</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
 
     <!--import jquery-->
     <script src="js/jquery-3.3.1.min.js"></script>
 
     <script>
         $(function () {
+            $.get("header.html",function (data) {
+                $("#header").html(data);
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
             var search = location.search;
             var cid = search.split("=")[1];
-            alert(cid);
+            load(cid, 1);
         });
+
+        function load(cid, currentPageNum) {
+            $.get("viewpoint/pageQuery", {cid:cid,pageSize:3,currentPageNum:currentPageNum}, function (data) {
+                $("#totalPage").html(data.totalPage);
+                $("#totalCount").html(data.totalCount);
+
+                // display page number
+                var lis = '';
+                var firstPage = '<li onclick="javascript:load('+cid+',1)"><a>First Page</a></li>';
+                lis += firstPage;
+                var previousPageNum = currentPageNum - 1;
+                if (previousPageNum <= 0) {
+                    previousPageNum = 1;
+                }
+                var previousPage = '<li onclick="javascript:load('+cid+','+previousPageNum+')"><a>Previous Page</a></li>';
+                lis += previousPage;
+
+                var start;
+                var end;
+                if (data.totalPage < 5) {
+                    start = 1;
+                    end = data.totalPage;
+                } else {
+                    start = currentPageNum - 2;
+                    end = currentPageNum + 2;
+                    if (start < 1) {
+                        start = 1;
+                        end = 5;
+                    }
+                    if (end > data.totalPage) {
+                        end = data.totalPage;
+                        start = end - 4;
+                    }
+                }
+                for (let i = start; i <= end; i++) {
+                    var li;
+                    if (currentPageNum == i) {
+                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+')"><a style="color: #a94442">'+i+'</a></li>';
+                    } else {
+                        li = '<li onclick="javascript:load('+cid+','+i+')"><a>'+i+'</a></li>';
+                    }
+                    lis += li;
+                }
+
+                var nextPageNum = currentPageNum + 1;
+                if (nextPageNum > data.totalPage) {
+                    nextPageNum = data.totalPage;
+                }
+                var nextPage = '<li onclick="javascript:load('+cid+','+nextPageNum+')"><a>Next Page</a></li>';
+                lis += nextPage;
+                var lastPage = '<li onclick="javascript:load('+cid+','+data.totalPage+')"><a>Last Page</a></li>';
+                lis += lastPage;
+
+                $("#pageNumList").html(lis);
+
+                // display viewpoint list
+                var vp_lis = '';
+                for (let i = 0; i < data.vpList.length; i++) {
+                    var viewpoint = data.vpList[i];
+                    var vp_li = '<li>\n'+
+                                    '<div class="text_left">\n'+
+                                        '<p>'+viewpoint.vname+'</p>\n<br/>\n'+
+                                        '<p>'+viewpoint.introduce+'</p>\n<br/>\n'+
+                                    '</div>\n'+
+                                    '<div class="text_right">\n'+
+                                        '<p><a href="viewpoint_detail.html?vid='+viewpoint.vid+'">View Detail</a></p>\n'+
+                                    '</div>\n'+
+                                '</li>';
+                    vp_lis += vp_li;
+                }
+                $("#viewpointList").html(vp_lis);
+                window.scrollTo(0,0);
+            });
+        }
     </script>
 </head>
 <body>
+    <div id="header"></div>
+    <div class="page">
+        <div class="content">
+            <ul id="viewpointList">
 
+            </ul>
+        </div>
+        <div class="pageNum">
+            <p>Total <span id="totalPage"></span> Page <span id="totalCount"></span> Item</p>
+            <ul id="pageNumList">
+
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
