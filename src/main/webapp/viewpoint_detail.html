@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>viewpoint detail</title>
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <script src="js/getParameter.js"></script>
+    <!--import jquery-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $.get("header.html",function (data) {
+                $("#header").html(data);
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            var vid = getParameter("vid")
+            $.get("viewpoint/findDetail",{vid:vid},function (data) {
+                $("#vname").html(data.vname);
+                $("#location").html(data.location);
+                $("#favoriteCount").html(data.favCount+" people added this");
+                $("#introduce").html(data.introduce);
+                $("#detail").html(data.detail);
+
+                if (data.imgList != null && data.imgList.length > 0){
+                    var big = '<img class="big_img" src="'+data.imgList[0].img+'">'
+                    $("#big_picture").html(big);
+
+                    if (data.imgList.length > 1) {
+                        var small = '';
+                        for (let i = 1; i < data.imgList.length; i++){
+                            var item;
+                            if (i > 2){
+                                item = '<a class="small_img" style="display: none;">\n' +
+                                    '<img src="'+data.imgList[i].img+'">\n'+
+                                    '</a>';
+                            } else{
+                                item = '<a class="small_img">\n' +
+                                    '<img src="'+data.imgList[i].img+'">\n'+
+                                    '</a>';
+                            }
+                            small += item;
+                        }
+                        $("#small_picture").html(small);
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="header"></div>
+    <div class="layout">
+        <div class="vp_top">
+            <div class="vp_left">
+                <dl>
+                    <dt id="big_picture">
+
+                    </dt>
+                    <dl id="small_picture">
+
+                    </dl>
+                </dl>
+            </div>
+            <div class="vp_right">
+                <p id="vname"></p>
+                <p id="location"></p>
+                <p class="favorite">
+                    <span id="favoriteCount"></span>
+                </p>
+            </div>
+        </div>
+        <div id="vp_bottom">
+            <dl>
+                <dt>Introduce</dt>
+                <dl id="introduce"></dl>
+                <dt>Detail</dt>
+                <dl id="detail"></dl>
+            </dl>
+        </div>
+    </div>
+</body>
+</html>

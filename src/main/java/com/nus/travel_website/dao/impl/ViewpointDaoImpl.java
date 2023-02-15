@@ -6,6 +6,7 @@ import com.nus.travel_website.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +49,11 @@ public class ViewpointDaoImpl implements ViewpointDao {
         params.add(pageSize);
         sql = sb.toString();
         return template.query(sql, new BeanPropertyRowMapper<Viewpoint>(Viewpoint.class), params.toArray());
+    }
+
+    @Override
+    public Viewpoint findDetail(int vid) {
+        String sql = "select * from tab_viewpoint where vid = ?";
+        return template.queryForObject(sql,new BeanPropertyRowMapper<Viewpoint>(Viewpoint.class),vid);
     }
 }

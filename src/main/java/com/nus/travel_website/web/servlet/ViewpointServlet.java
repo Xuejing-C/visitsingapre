@@ -37,4 +37,11 @@ public class ViewpointServlet extends BaseServlet {
         PageBean<Viewpoint> pageBean = service.pageQuery(cid, pageSize, currentPageNum, vname);
         writeValue(pageBean, response);
     }
+
+    public void findDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String vidStr = request.getParameter("vid");
+        int vid = Integer.parseInt(vidStr);
+        Viewpoint viewpoint = service.findDetail(vid);
+        writeValue(viewpoint, response);
+    }
 }

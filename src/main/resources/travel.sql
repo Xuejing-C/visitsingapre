@@ -2,12 +2,12 @@
 /* create table                                          */
 /*==============================================================*/
 drop table if exists tab_user;
-drop table if exists tab_category;
 drop table if exists tab_viewpoint;
+drop table if exists tab_category;
+drop table if exists tab_viewpoint_img;
 
 
 drop table if exists tab_favorite;
-drop table if exists tab_route_img;
 drop table if exists tab_seller;
 
 /*==============================================================*/
@@ -136,6 +136,34 @@ insert into tab_viewpoint (vname, location, introduce, detail, cid) values
  'Situated on the fifth floor of Golden Mile Tower, the indie movie theatre is housed in the Golden Theatre, our largest cinema during the 1970s. While most of the interior has been redesigned, it still retains its retro theatre flip-up seats. The Projector occasionally screens local indie movies and award-winning flicks, too.',
  1);
 
+/*==============================================================*/
+/* Table: tab_viewpoint_img                                         */
+/*==============================================================*/
+create table tab_viewpoint_img
+(
+    vgid                 int not null auto_increment,
+    vid                  int not null,
+    img               varchar(200) not null,
+    primary key (rgid)
+);
+alter table tab_viewpoint_img add constraint FK_viewpoint_viewpointimg foreign key (vid)
+    references tab_viewpoint (vid) on delete restrict on update restrict;
+insert into tab_viewpoint_img (vid, img) values
+(1,'img/chinatown_1.jpg'),
+(1,'img/chinatown_2.jpg'),
+(1,'img/chinatown_3.jpg'),
+(1,'img/chinatown_4.jpg'),
+(7,'img/marina_bay_sands_1.jpg'),
+(7,'img/marina_bay_sands_2.jpg'),
+(7,'img/marina_bay_sands_3.jpg'),
+(7,'img/marina_bay_sands_4.jpg'),
+(8,'img/adventure_cove_waterpark_1.jpg'),
+(8,'img/adventure_cove_waterpark_2.jpg'),
+(8,'img/adventure_cove_waterpark_3.jpg'),
+(8,'img/adventure_cove_waterpark_4.jpg');
+
+
+
 
 /*==============================================================*/
 /* Table: tab_favorite                                          */
@@ -148,17 +176,6 @@ create table tab_favorite
     primary key (rid, uid)
 );
 
-/*==============================================================*/
-/* Table: tab_route_img                                         */
-/*==============================================================*/
-create table tab_route_img
-(
-    rgid                 int not null auto_increment,
-    rid                  int not null,
-    bigPic               varchar(200) not null,
-    smallPic             varchar(200),
-    primary key (rgid)
-);
 
 /*==============================================================*/
 /* Table: tab_seller                                            */
@@ -180,6 +197,3 @@ alter table tab_favorite add constraint FK_user_favorite foreign key (uid)
 
 alter table tab_route add constraint FK_seller_route foreign key (sid)
     references tab_seller (sid) on delete restrict on update restrict;
-
-alter table tab_route_img add constraint FK_route_routeimg foreign key (rid)
-    references tab_route (rid) on delete restrict on update restrict;

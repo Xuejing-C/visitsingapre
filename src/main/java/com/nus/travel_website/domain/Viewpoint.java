@@ -1,6 +1,8 @@
 package com.nus.travel_website.domain;
 
-public class Viewpoint {
+import java.util.List;
+
+public class Viewpoint{
     private int vid;
     private String vname;
     private String location;
@@ -9,9 +11,11 @@ public class Viewpoint {
     private int cid;
     private int favCount;
 
+    private List<Image> imgList;
+
     public Viewpoint() {
     }
-    public Viewpoint(int vid, String vname, String introduce, String detail, String location, int cid, int favCount) {
+    public Viewpoint(int vid, String vname, String introduce, String detail, String location, int cid, int favCount, List<Image> imgList) {
         this.vid = vid;
         this.vname = vname;
         this.introduce = introduce;
@@ -19,6 +23,7 @@ public class Viewpoint {
         this.location = location;
         this.cid = cid;
         this.favCount = favCount;
+        this.imgList = imgList;
     }
 
     public String getLocation() {
@@ -74,5 +79,13 @@ public class Viewpoint {
 
     public void setFavCount(int favCount) {
         this.favCount = favCount;
+    }
+
+    public List<Image> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<Image> imgList) {
+        this.imgList = imgList;
     }
 }

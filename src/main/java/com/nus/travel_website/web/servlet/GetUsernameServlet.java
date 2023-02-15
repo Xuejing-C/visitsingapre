@@ -15,7 +15,6 @@ public class GetUsernameServlet extends HttpServlet {
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(user);
-        System.out.println(json);
 
         response.setContentType("application/json");
         response.getWriter().write(json);
