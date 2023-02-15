@@ -11,18 +11,18 @@ import java.util.List;
 public class ViewpointServiceImpl implements ViewpointService {
     private ViewpointDao viewpointDao = new ViewpointDaoImpl();
     @Override
-    public PageBean<Viewpoint> pageQuery(int cid, int pageSize, int currentPageNum) {
+    public PageBean<Viewpoint> pageQuery(int cid, int pageSize, int currentPageNum, String vname) {
         PageBean<Viewpoint> pageBean = new PageBean<>();
 
-        int totalCount = viewpointDao.findTotalCount(cid);
+        int totalCount = viewpointDao.findTotalCount(cid,vname);
         pageBean.setTotalCount(totalCount);
         pageBean.setPageSize(pageSize);
         int totalPage = totalCount % pageSize == 0 ? (totalCount / pageSize) : (totalCount / pageSize) + 1;
         pageBean.setTotalPage(totalPage);
-        pageBean.setCurrentPage(currentPageNum);
+        pageBean.setcurrentPageNum(currentPageNum);
 
         int start = (currentPageNum - 1) * pageSize;
-        List<Viewpoint> pageContent = viewpointDao.findPageContent(cid, start, pageSize);
+        List<Viewpoint> pageContent = viewpointDao.findPageContent(cid, start, pageSize, vname);
         pageBean.setVpList(pageContent);
         return pageBean;
     }

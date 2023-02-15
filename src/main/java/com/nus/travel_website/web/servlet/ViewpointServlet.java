@@ -17,9 +17,10 @@ public class ViewpointServlet extends BaseServlet {
         String cidStr = request.getParameter("cid");
         String pageSizeStr = request.getParameter("pageSize");
         String currentPageNumStr = request.getParameter("currentPageNum");
+        String vname = request.getParameter("vname");
 
         int cid = 0;
-        if (cidStr != null && cidStr.length() > 0) {
+        if (cidStr != null && cidStr.length() > 0 && !"null".equals(cidStr)) {
             cid = Integer.parseInt(cidStr);
         }
 
@@ -29,11 +30,11 @@ public class ViewpointServlet extends BaseServlet {
         }
 
         int currentPageNum = 1;
-        if (currentPageNumStr != null && currentPageNumStr.length() > 0) {
+        if (currentPageNumStr != null && currentPageNumStr.length() > 0 && !"0".equals(currentPageNumStr)) {
             currentPageNum = Integer.parseInt(currentPageNumStr);
         }
 
-        PageBean<Viewpoint> pageBean = service.pageQuery(cid, pageSize, currentPageNum);
+        PageBean<Viewpoint> pageBean = service.pageQuery(cid, pageSize, currentPageNum, vname);
         writeValue(pageBean, response);
     }
 }

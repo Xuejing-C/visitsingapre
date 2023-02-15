@@ -1,3 +1,4 @@
+<script src="js/getParameter.js"></script>
 <script>
     $(function () {
         // acquire login username
@@ -19,7 +20,14 @@
             $("#category").html(lis);
         });
 
+        $("#search_button").click(function () {
+            var vname = $("#search_input").val();
+            var cid = getParameter("cid");
+            location.href="viewpoint_list.html?cid="+cid+"&vname="+vname;
+        });
     });
+
+
 </script>
 
 <header id="header">
@@ -39,8 +47,8 @@
     </div>
     <div class="header_wrap">
         <div class="search">
-            <input name="" id="search_input"  type="text" placeholder="Please enter tourism" class="search_input" autocomplete="off">
-            <a href="javascript:;" id="search-button" class="search-button">search</a>
+            <input name="" id="search_input"  type="text" placeholder="Please enter viewpoint" class="search_input" autocomplete="off">
+            <a id="search_button" class="search_button">search</a>
         </div>
     </div>
     <div class="nav">

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>viewpoint list</title>
     <link rel="stylesheet" type="text/css" href="css/header.css">
+    <script src="js/getParameter.js"></script>
 
     <!--import jquery-->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -18,25 +19,25 @@
 
     <script>
         $(function () {
-            var search = location.search;
-            var cid = search.split("=")[1];
-            load(cid, 1);
+            var cid = getParameter("cid");
+            var vname = getParameter("vname");
+            load(cid, 1, vname);
         });
 
-        function load(cid, currentPageNum) {
-            $.get("viewpoint/pageQuery", {cid:cid,pageSize:3,currentPageNum:currentPageNum}, function (data) {
+        function load(cid, currentPageNum, vname) {
+            $.get("viewpoint/pageQuery", {cid:cid,pageSize:3,currentPageNum:currentPageNum,vname:vname}, function (data) {
                 $("#totalPage").html(data.totalPage);
                 $("#totalCount").html(data.totalCount);
 
                 // display page number
                 var lis = '';
-                var firstPage = '<li onclick="javascript:load('+cid+',1)"><a>First Page</a></li>';
+                var firstPage = '<li onclick="javascript:load('+cid+',1,\''+vname+'\')"><a>First Page</a></li>';
                 lis += firstPage;
-                var previousPageNum = currentPageNum - 1;
+                var previousPageNum = data.currentPageNum - 1;
                 if (previousPageNum <= 0) {
                     previousPageNum = 1;
                 }
-                var previousPage = '<li onclick="javascript:load('+cid+','+previousPageNum+')"><a>Previous Page</a></li>';
+                var previousPage = '<li onclick="javascript:load('+cid+','+previousPageNum+',\''+vname+'\')"><a>Previous Page</a></li>';
                 lis += previousPage;
 
                 var start;
@@ -45,8 +46,8 @@
                     start = 1;
                     end = data.totalPage;
                 } else {
-                    start = currentPageNum - 2;
-                    end = currentPageNum + 2;
+                    start = data.currentPageNum - 2;
+                    end = data.currentPageNum + 2;
                     if (start < 1) {
                         start = 1;
                         end = 5;
@@ -58,21 +59,21 @@
                 }
                 for (let i = start; i <= end; i++) {
                     var li;
-                    if (currentPageNum == i) {
-                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+')"><a style="color: #a94442">'+i+'</a></li>';
+                    if (data.currentPageNum == i) {
+                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+',\''+vname+'\')"><a style="color: #a94442">'+i+'</a></li>';
                     } else {
-                        li = '<li onclick="javascript:load('+cid+','+i+')"><a>'+i+'</a></li>';
+                        li = '<li onclick="javascript:load('+cid+','+i+',\''+vname+'\')"><a>'+i+'</a></li>';
                     }
                     lis += li;
                 }
 
-                var nextPageNum = currentPageNum + 1;
+                var nextPageNum = data.currentPageNum + 1;
                 if (nextPageNum > data.totalPage) {
                     nextPageNum = data.totalPage;
                 }
-                var nextPage = '<li onclick="javascript:load('+cid+','+nextPageNum+')"><a>Next Page</a></li>';
+                var nextPage = '<li onclick="javascript:load('+cid+','+nextPageNum+',\''+vname+'\')"><a>Next Page</a></li>';
                 lis += nextPage;
-                var lastPage = '<li onclick="javascript:load('+cid+','+data.totalPage+')"><a>Last Page</a></li>';
+                var lastPage = '<li onclick="javascript:load('+cid+','+data.totalPage+',\''+vname+'\')"><a>Last Page</a></li>';
                 lis += lastPage;
 
                 $("#pageNumList").html(lis);

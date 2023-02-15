@@ -6,7 +6,7 @@ public class PageBean<T> {
     private int totalCount;
     private int pageSize;
     private int totalPage;
-    private int currentPage;
+    private int currentPageNum;
     private List<T> vpList;
 
     public int getTotalCount() {
@@ -25,12 +25,12 @@ public class PageBean<T> {
         this.totalPage = totalPage;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    public int getcurrentPageNum() {
+        return currentPageNum;
     }
 
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+    public void setcurrentPageNum(int currentPageNum) {
+        this.currentPageNum = currentPageNum;
     }
 
     public int getPageSize() {
