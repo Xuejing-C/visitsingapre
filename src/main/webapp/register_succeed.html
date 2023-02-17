@@ -2,25 +2,32 @@
 <html lang="en">
     <head>
         <title>registration</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/header.css">
         <link rel="stylesheet" href="css/register.css">
-		<!--import jquery-->
-		<script src="js/jquery-3.3.1.min.js"></script>
-
+        <!--import jquery and bootstrap-->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
         <script>
             $(function () {
                 $.get("header.html",function (data) {
                     $("#header").html(data);
+                });
+                $.get("footer.html",function (data) {
+                    $("#footer").html(data);
                 });
             });
         </script>
     </head>
     <body>
         <div id="header"></div>
-    	<div style="text-align:center;red:yellow;font-weight:bold;height:150px;padding-top:100px;font-size:30px;">
+    	<div class="container" style="text-align: center;">
     		<h4>Congratulation, registration succeeds!</h4>
             <h4>Please log in to your registered email to activate your account.</h4>
             <h4>You can log in only after activation.</h4>
     	</div>
+        <div id="footer"></div>
     </body>
 </html>

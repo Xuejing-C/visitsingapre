@@ -1,0 +1,29 @@
+.vp_top{
+    height: 380px;
+}
+.vp_left{
+    width: 30%;
+    height: 380px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.vp_right{
+    width: 70%;
+    height: 380px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+#carousel-example-generic{
+    height: 360px;
+}
+#vname{
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #337ab7;
+}

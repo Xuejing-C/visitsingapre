@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>viewpoint list</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/viewpoint_list.css">
     <script src="js/getParameter.js"></script>
 
-    <!--import jquery-->
+    <!--import jquery and bootstrap-->
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
     <script>
         $(function () {
             $.get("header.html",function (data) {
                 $("#header").html(data);
+            });
+            $.get("footer.html",function (data) {
+                $("#footer").html(data);
             });
         });
     </script>
@@ -31,13 +39,13 @@
 
                 // display page number
                 var lis = '';
-                var firstPage = '<li onclick="javascript:load('+cid+',1,\''+vname+'\')"><a>First Page</a></li>';
+                var firstPage = '<li class="long" onclick="javascript:load('+cid+',1,\''+vname+'\')"><a>First Page</a></li>';
                 lis += firstPage;
                 var previousPageNum = data.currentPageNum - 1;
                 if (previousPageNum <= 0) {
                     previousPageNum = 1;
                 }
-                var previousPage = '<li onclick="javascript:load('+cid+','+previousPageNum+',\''+vname+'\')"><a>Previous Page</a></li>';
+                var previousPage = '<li class="long" onclick="javascript:load('+cid+','+previousPageNum+',\''+vname+'\')"><a>Prev Page</a></li>';
                 lis += previousPage;
 
                 var start;
@@ -60,7 +68,7 @@
                 for (let i = start; i <= end; i++) {
                     var li;
                     if (data.currentPageNum == i) {
-                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+',\''+vname+'\')"><a style="color: #a94442">'+i+'</a></li>';
+                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+',\''+vname+'\')"><a style="color: white">'+i+'</a></li>';
                     } else {
                         li = '<li onclick="javascript:load('+cid+','+i+',\''+vname+'\')"><a>'+i+'</a></li>';
                     }
@@ -71,9 +79,9 @@
                 if (nextPageNum > data.totalPage) {
                     nextPageNum = data.totalPage;
                 }
-                var nextPage = '<li onclick="javascript:load('+cid+','+nextPageNum+',\''+vname+'\')"><a>Next Page</a></li>';
+                var nextPage = '<li class="long" onclick="javascript:load('+cid+','+nextPageNum+',\''+vname+'\')"><a>Next Page</a></li>';
                 lis += nextPage;
-                var lastPage = '<li onclick="javascript:load('+cid+','+data.totalPage+',\''+vname+'\')"><a>Last Page</a></li>';
+                var lastPage = '<li class="long" onclick="javascript:load('+cid+','+data.totalPage+',\''+vname+'\')"><a>Last Page</a></li>';
                 lis += lastPage;
 
                 $("#pageNumList").html(lis);
@@ -82,15 +90,19 @@
                 var vp_lis = '';
                 for (let i = 0; i < data.vpList.length; i++) {
                     var viewpoint = data.vpList[i];
-                    var vp_li = '<li>\n'+
-                                    '<div class="text_left">\n'+
-                                        '<p>'+viewpoint.vname+'</p>\n<br/>\n'+
-                                        '<p>'+viewpoint.introduce+'</p>\n<br/>\n'+
-                                    '</div>\n'+
-                                    '<div class="text_right">\n'+
-                                        '<p><a href="viewpoint_detail.html?vid='+viewpoint.vid+'">View Detail</a></p>\n'+
-                                    '</div>\n'+
-                                '</li>';
+                    var vp_li = '<li class="thumbnail vp_li">\n'+
+                                        '<div class="li_left">\n'+
+                                            '<div class="left_wrap">\n' +
+                                                '<h4>'+viewpoint.vname+'</h4>\n<br/>\n'+
+                                                '<p id="introduce">'+viewpoint.introduce+'</p>\n<br/>\n'+
+                                                '<p><a href="viewpoint_detail.html?vid='+viewpoint.vid+'">View Detail</a></p>\n'+
+                                            '</div>\n'+
+                                        '</div>\n'+
+                                        '<div class="li_right">\n';
+                    if (viewpoint.smallImg != null) {
+                        vp_li += '<img src="'+viewpoint.smallImg+'" style="width: 100%">\n';
+                    }
+                    vp_li += '</div>\n</li>';
                     vp_lis += vp_li;
                 }
                 $("#viewpointList").html(vp_lis);
@@ -101,18 +113,19 @@
 </head>
 <body>
     <div id="header"></div>
-    <div class="page">
+    <div class="container">
         <div class="content">
             <ul id="viewpointList">
 
             </ul>
         </div>
         <div class="pageNum">
-            <p>Total <span id="totalPage"></span> Page <span id="totalCount"></span> Item</p>
+            <p>Total <span id="totalPage"></span> page, <span id="totalCount"></span> item</p>
             <ul id="pageNumList">
 
             </ul>
         </div>
     </div>
+    <div id="footer"></div>
 </body>
 </html>

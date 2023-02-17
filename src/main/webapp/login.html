@@ -2,15 +2,22 @@
 <html>
 	<head>
 		<title>login</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/header.css">
 		<link rel="stylesheet" type="text/css" href="css/login.css">
-		<!--import jquery-->
-		<script src="js/jquery-3.3.1.min.js"></script>
 
+		<!--import jquery and bootstrap-->
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
 		<script>
 			$(function () {
 				$.get("header.html",function (data) {
 					$("#header").html(data);
+				});
+				$.get("footer.html",function (data) {
+					$("#footer").html(data);
 				});
 			});
 		</script>
@@ -82,34 +89,63 @@
 
 	<body>
 		<div id="header"></div>
-		<div id="login_wrap">
-			<div class="login_box">
-				<div class="title">
-					<span>Welcome to log in</span>
-				</div>
-				<div class="login_inner">
-					<div id="errorMsg" class="alert alert-danger" ></div>
+		<div class="container">
+			<div id="login_wrap">
+				<div class="login_box">
+					<div class="title">
+						<span>Welcome to log in</span>
+					</div>
+					<div class="login_inner">
+						<div id="errorMsg" style="color:red;text-align: center"></div>
 
-					<form id="loginForm" action="" method="post" accept-charset="utf-8">
-						<input type="hidden" name="action" value="login"/>
-						<input id="email" name="email" type="text" placeholder="Please enter email" autocomplete="off">
-						<input id="password" name="password" type="text" placeholder="Please enter password" autocomplete="off">
-						<div class="verify">
-							<input id="check" name="check" type="text" placeholder="Please enter check code" autocomplete="off">
-							<span><img src="checkCodeServlet" alt="" onclick="changeCheckCode(this)"></span>
-							<script type="text/javascript">
-								function changeCheckCode(img) {
-									img.src="checkCodeServlet?time="+new Date().getTime();
-								}
-							</script>
-						</div>
-						<div class="submit_btn">
-							<button type="button"  id="btn_sub">Login</button>
-						</div>
-					</form>
-					<div class="reg">Don't have an account? <a href="register.html;">Register now</a></div>
+						<form id="loginForm" action="" method="post" accept-charset="utf-8">
+							<input type="hidden" name="action" value="login">
+							<table>
+								<tr>
+									<td class="td_left">
+										<label for="email">Email</label>
+									</td>
+									<td class="td_right">
+										<input id="email" name="email" type="text" placeholder="Please enter email" autocomplete="off">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="password">Password</label>
+									</td>
+									<td class="td_right">
+										<input type="password" id="password" name="password"  placeholder="Please enter password" autocomplete="off">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="check">Check Code</label>
+									</td>
+									<td class="td_right">
+										<input type="text" id="check" name="check" class="check"
+											   style="width: 160px;padding-left: 12px;margin-left:14px;margin-right: 5px"
+											   placeholder="click picture to change">
+										<img src="checkCodeServlet" height="32px" alt="" onclick="changeCheckCode(this)">
+										<script type="text/javascript">
+											function changeCheckCode(img) {
+												img.src="checkCodeServlet?time="+new Date().getTime();
+											}
+										</script>
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left"></td>
+									<td class="td_right submit_btn">
+										<button type="button"  id="btn_sub">Login</button>
+									</td>
+								</tr>
+							</table>
+						</form>
+						<div class="reg">Don't have an account? <a href="register.html;">Register now</a></div>
+					</div>
 				</div>
-			</div>
 		</div>
+		</div>
+		<div id="footer"></div>
 	</body>
 </html>

@@ -98,8 +98,9 @@
 	width: 120px;
 	height: 36px;
 	line-height: 36px;
-	background-color: #ffc900;
+	background-color: #337ab7;
 	font-size: 14px;
+	color: white;
 }
 .rg_form > .rg_form_right >p{
 	float: right;

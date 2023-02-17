@@ -1,0 +1,53 @@
+#viewpointList{
+    padding-inline-start: 0px;
+}
+.vp_li{
+    height: 280px;
+}
+.li_left{
+    width: 60%;
+    height: 280px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.left_wrap{
+    width: 100%
+}
+#introduce{
+    color: #a1a1a1;
+}
+.li_right{
+    width: 40%;
+    height: 280px;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.pageNum ul{
+    padding:0px;
+}
+.pageNum ul li {
+    width: 40px;
+    height: 40px;
+    float: left;
+    border: 1px solid #eee;
+    margin-right: 10px;
+    text-align: center;
+    line-height: 40px;
+    list-style-type:none;
+}
+.pageNum ul li.curPage {
+    background-color: #337ab7;
+}
+.pageNum ul li a {
+    width: 100%;
+    height: 100%;
+    color: #000;
+    font-size: 14px;
+}
+.pageNum ul .long {
+    width: 75px;
+}

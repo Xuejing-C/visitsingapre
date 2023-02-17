@@ -2,15 +2,21 @@
 <html lang="en">
     <head>
         <title>registration</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/header.css">
         <link rel="stylesheet" href="css/register.css">
-		<!--import jquery-->
+		<!--import jquery and bootstrap-->
 		<script src="js/jquery-3.3.1.min.js"></script>
-
+		<script src="js/bootstrap.min.js"></script>
 		<script>
 			$(function () {
 				$.get("header.html",function (data) {
 					$("#header").html(data);
+				});
+				$.get("footer.html",function (data) {
+					$("#footer").html(data);
 				});
 			});
 		</script>
@@ -98,120 +104,124 @@
 
 	<body>
 		<div id="header"></div>
-    	<div class="rg_layout">
-    		<div class="rg_form clearfix">
-    			<div class="rg_form_left">
-    				<p>USER REGISTRATION</p>
-    			</div>
-    			<div class="rg_form_center">
-					<div id="errorMsg" style="color:red;text-align: center"></div>
-					<!--registration form-->
-    				<form id="registerForm">
-						<input type="hidden" name="action" value="register">
-    					<table style="margin-top: 25px;">
-    						<tr>
-    							<td class="td_left">
-    								<label for="username">Username</label>
-    							</td>
-								<td class="td_center">
-									<label>*</label>
-								</td>
-    							<td class="td_right">
-    								<input type="text" id="username" name="username" placeholder="2 to 10 letters, numbers & underline">
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left">
-    								<label for="password">Password</label>
-    							</td>
-								<td class="td_center">
-									<label>*</label>
-								</td>
-    							<td class="td_right">
-    								<input type="password" id="password" name="password" placeholder="6 to 20 letters, numbers & underline">
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left">
-    								<label for="email">Email</label>
-    							</td>
-								<td class="td_center">
-									<label>*</label>
-								</td>
-    							<td class="td_right">
-    								<input type="text" id="email" name="email" placeholder="xxx@xxx.com">
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left">
-    								<label for="telephone">Telephone</label>
-    							</td>
-								<td class="td_center">
-								</td>
-    							<td class="td_right">
-    								<input type="text" id="telephone" name="telephone">
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left">
-    								<label for="gender">Gender</label>
-    							</td>
-								<td class="td_center">
-								</td>
-    							<td class="td_right gender">
-    								<input type="radio" id="gender" name="gender" value="Male" checked> Male
-    								<input type="radio" name="gender" value="Female"> Female
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left">
-    								<label for="birthday">Birthday</label>
-    							</td>
-								<td class="td_center">
-								</td>
-    							<td class="td_right">
-    								<input type="date" id="birthday" name="birthday">
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left">
-    								<label for="check">Check Code</label>
-    							</td>
-								<td class="td_center">
-									<label>*</label>
-								</td>
-    							<td class="td_right">
-    								<input type="text" id="check" name="check" class="check"
-										   style="width: 160px;padding-left: 12px;margin-left:14px;margin-right: 5px"
-										   placeholder="click picture to change">
-    								<img src="checkCodeServlet" height="32px" alt="" onclick="changeCheckCode(this)">
-									<script type="text/javascript">
-										function changeCheckCode(img) {
-											img.src="checkCodeServlet?time="+new Date().getTime();
-                                        }
-									</script>
-    							</td>
-    						</tr>
-    						<tr>
-    							<td class="td_left"> 
-    							</td>
-								<td class="td_center">
-								</td>
-    							<td class="td_right check"> 
-    								<input type="submit" class="submit" value="register">
-									<span id="msg" style="color: red;"></span>
-    							</td>
-    						</tr>
-    					</table>
-    				</form>
-    			</div>
-    			<div class="rg_form_right">
-    				<p>
-    					Already has an account?
-    					<a href="#">Log in now</a>
-    				</p>
-    			</div>
-    		</div>
-    	</div>
+		<div class="container">
+			<div class="rg_layout">
+				<div class="rg_form clearfix">
+					<div class="rg_form_left">
+						<p>USER REGISTRATION</p>
+					</div>
+					<div class="rg_form_center">
+						<div id="errorMsg" style="color:red;text-align: center"></div>
+						<!--registration form-->
+						<form id="registerForm">
+							<input type="hidden" name="action" value="register">
+							<table style="margin-top: 25px;">
+								<tr>
+									<td class="td_left">
+										<label for="username">Username</label>
+									</td>
+									<td class="td_center">
+										<label>*</label>
+									</td>
+									<td class="td_right">
+										<input type="text" id="username" name="username" placeholder="2 to 10 letters, numbers & underline">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="password">Password</label>
+									</td>
+									<td class="td_center">
+										<label>*</label>
+									</td>
+									<td class="td_right">
+										<input type="password" id="password" name="password" placeholder="6 to 20 letters, numbers & underline">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="email">Email</label>
+									</td>
+									<td class="td_center">
+										<label>*</label>
+									</td>
+									<td class="td_right">
+										<input type="text" id="email" name="email" placeholder="xxx@xxx.com">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="telephone">Telephone</label>
+									</td>
+									<td class="td_center">
+									</td>
+									<td class="td_right">
+										<input type="text" id="telephone" name="telephone">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="gender">Gender</label>
+									</td>
+									<td class="td_center">
+									</td>
+									<td class="td_right gender">
+										<input type="radio" id="gender" name="gender" value="Male" checked> Male
+										<input type="radio" name="gender" value="Female"> Female
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="birthday">Birthday</label>
+									</td>
+									<td class="td_center">
+									</td>
+									<td class="td_right">
+										<input type="date" id="birthday" name="birthday">
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+										<label for="check">Check Code</label>
+									</td>
+									<td class="td_center">
+										<label>*</label>
+									</td>
+									<td class="td_right">
+										<input type="text" id="check" name="check" class="check"
+											   style="width: 160px;padding-left: 12px;margin-left:14px;margin-right: 5px"
+											   placeholder="click picture to change">
+										<img src="checkCodeServlet" height="32px" alt="" onclick="changeCheckCode(this)">
+										<script type="text/javascript">
+											function changeCheckCode(img) {
+												img.src="checkCodeServlet?time="+new Date().getTime();
+											}
+										</script>
+									</td>
+								</tr>
+								<tr>
+									<td class="td_left">
+									</td>
+									<td class="td_center">
+									</td>
+									<td class="td_right check">
+										<input type="submit" class="submit" value="register">
+										<span id="msg" style="color: red;"></span>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+					<div class="rg_form_right">
+						<p>
+							Already has an account?
+							<a href="login.html">Log in now</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer"></div>
     </body>
 </html>

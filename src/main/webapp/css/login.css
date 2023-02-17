@@ -1,10 +1,9 @@
 #login_wrap {
     width:100%;
-    min-width: 1300px;
     overflow: hidden;
 }
 .login_box {
-    width: 360px;
+    width: 500px;
     height: 450px;
     background: #fff;
     margin:24px auto;
@@ -15,7 +14,8 @@
 .title {
     height: 80px;
     line-height: 80px;
-    background: #ffc900;
+    background: #337ab7;
+    color: white;
     font-size: 22px;
     padding:0 30px;
     text-align: center;
@@ -31,51 +31,61 @@
     border-bottom: 1px solid #eee;
 }
 
-.login_inner #loginForm input {
-    display: inline-block;
-    width: 246px;
-    height: 26px;
-    border: 1px solid #d8d8d8;
-    font-size: 14px;
-    color: #666;
-    line-height: 28px;
-    padding: 6px 0 6px 12px;
-    box-shadow: 0 0 5px #fff;
-    outline: none;
-    transition: box-shadow 0.25s linear 0s;
-    -webkit-transition: box-shadow 0.25s linear 0s;
-    margin-bottom: 17px;
+tr{
+    height: 50px;
+    width: 100%;
 }
 
-.verify input {
-    width: 95px;
-    margin-right: 20px;
+.td_left{
+    width: 30%;
+    text-align: right;
+    padding-right: 3px;
+}
+
+.td_right{
+    width: 70%;
+}
+
+#email,#password{
+    width: 256px;
+    height: 32px;
+    line-height: 32px;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border:1px solid #a6a6a6;
+    float: right;
+}
+
+#check{
+    width: 140px;
+    height: 32px;
+    line-height: 32px;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border:1px solid #a6a6a6;
     float: left;
-    margin-bottom: 0;
 }
 
-.submit_btn button {
+.submit_btn{
+    padding-left: 10px;
+}
+
+#btn_sub {
     width: 120px;
     height: 40px;
     border: none;
-    background-color: #ffa800;
+    background-color: #337ab7;
     text-align: center;
     line-height: 40px;
-    color: #000;
+    color: white;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     float: left;
 }
 
-.alert {
-    margin: 0 auto;
-    padding: 6px 10px;
-    border: 1px solid transparent;
-    text-align: left;
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    margin-bottom: 17px;
-    font-size: 12px;
+.reg{
+    text-align: center;
 }

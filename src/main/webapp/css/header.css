@@ -1,66 +1,26 @@
-#header {
-    width: 100%;
-    overflow: hidden;
-}
-
 .shortcut {
-    width: 1200px;
-    height: 50px;
+    height: 30px;
+    margin-top: 15px;
 }
-
-.login_out, .login {
-    height: 50px;
-    line-height: 36px;
+.shortcut_right, .shortcut_left{
+    float: right;
+    height: 20px;
+}
+.shortcut_right a {
+    color: #000;
+    font-size: 14px;
+    margin: 0 10px;
+}
+.shortcut_left {
+    font-size: 14px;
+}
+.shortcut_left a{
+    color: #a1a1a1;
+    margin: 0 16px 0 10px;
     float: right;
 }
-
-.login {
-    width: 205px;
-    font-size: 14px;
-}
-.login a{
-    font-size: 14px;
-    color: #a1a1a1;
-}
-.login .collection {
-    color: #ff7676;
-    margin: 10px 16px 10px 10px;
-}
-.login_out a {
+.shortcut_left span{
     color: #000;
-    font-size: 14px;
-    margin: 10px 10px;
-}
-
-.header_wrap {
-    overflow: hidden;
-    width: 1200px;
-}
-
-.search {
-    display: flex;
-    justify-content: center;
-}
-
-.search_input {
-    float: left;
-    width: 400px;
-    height: 36px;
-    border: 2px solid #ffc900;
-    padding-left: 10px;
-}
-
-.search_input:focus {
-    outline: none;
-}
-
-.search-button {
-    float: left;
-    width: 90px;
-    height: 40px;
-    background: #ffc900;
-    text-align: center;
-    line-height: 40px;
-    color: #000;
-    font-size: 18px;
+    margin: 0 10px;
+    float: right;
 }

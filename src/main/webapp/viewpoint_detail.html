@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>viewpoint detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/viewpoint_detail.css">
     <script src="js/getParameter.js"></script>
-    <!--import jquery-->
+    <!--import jquery and bootstrap-->
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script>
         $(function () {
             $.get("header.html",function (data) {
                 $("#header").html(data);
+            });
+            $.get("footer.html",function (data) {
+                $("#footer").html(data);
             });
         });
     </script>
 
     <script>
         $(function () {
-            var vid = getParameter("vid")
+            var vid = getParameter("vid");
             $.get("viewpoint/findDetail",{vid:vid},function (data) {
                 $("#vname").html(data.vname);
                 $("#location").html(data.location);
@@ -26,51 +34,91 @@
                 $("#detail").html(data.detail);
 
                 if (data.imgList != null && data.imgList.length > 0){
-                    var big = '<img class="big_img" src="'+data.imgList[0].img+'">'
-                    $("#big_picture").html(big);
+                    var inds = '<li data-target="#carousel-example-generic" data-slide-to="0" className="active"></li>';
+                    var pics = '<div class="item active">\n'+
+                                    '<img src="'+data.imgList[0].img+'" style="display: block;height: 360px;">\n'+
+                                '</div>';
 
-                    if (data.imgList.length > 1) {
-                        var small = '';
-                        for (let i = 1; i < data.imgList.length; i++){
-                            var item;
-                            if (i > 2){
-                                item = '<a class="small_img" style="display: none;">\n' +
-                                    '<img src="'+data.imgList[i].img+'">\n'+
-                                    '</a>';
-                            } else{
-                                item = '<a class="small_img">\n' +
-                                    '<img src="'+data.imgList[i].img+'">\n'+
-                                    '</a>';
-                            }
-                            small += item;
-                        }
-                        $("#small_picture").html(small);
+                    for (let i = 1; i < data.imgList.length; i++){
+                        var ind = '<li data-target="#carousel-example-generic" data-slide-to="'+i+'"></li>';
+                        inds += ind
+                        var pic = '<div class="item">\n'+
+                            '<img src="'+data.imgList[i].img+'" style="display: block;height: 360px;">\n'+
+                            '</div>';
+                        pics += pic;
                     }
+
+                    var left = '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>\n' +
+                        '                        <span class="sr-only">Previous</span>';
+                    var right = '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>\n' +
+                        '                        <span class="sr-only">Next</span>';
+
+                    $("#indicators").html(inds);
+                    $("#picture").html(pics);
+                    $("left_control").html(left);
+                    $("right_control").html(right);
+                }
+            });
+
+            $.get("viewpoint/isFavorite",{vid:vid},function (flag) {
+                if (flag){
+                    // already add to favorite
+                    $("#favorite").addClass("already");
+                    $("#favorite").attr("disabled","disabled");
+                    $("#favorite").removeAttr("onclick");
                 }
             });
         });
+
+        function addFavorite(){
+            var vid = getParameter("vid");
+            $.get("getUsernameServlet",{},function (user){
+                if (user){
+                    $.get("viewpoint/addFavorite",{vid:vid},function () {
+                        // refresh
+                        location.reload();
+                    });
+                } else{
+                    alert("Please login");
+                    location.href="login.html";
+                }
+            });
+        }
+
     </script>
 </head>
 <body>
     <div id="header"></div>
-    <div class="layout">
-        <div class="vp_top">
+    <div class="container">
+        <div class="thumbnail vp_top">
             <div class="vp_left">
-                <dl>
-                    <dt id="big_picture">
-
-                    </dt>
-                    <dl id="small_picture">
-
-                    </dl>
-                </dl>
+                <div>
+                    <p id="vname"></p>
+                    <br>
+                    <br>
+                    <p id="location"></p>
+                    <br>
+                    <p class="favorite">
+                        <a class="btn btn-primary" id="favorite" onclick="addFavorite();">Add to favorite</a>
+                        <span id="favoriteCount"></span>
+                    </p>
+                </div>
             </div>
             <div class="vp_right">
-                <p id="vname"></p>
-                <p id="location"></p>
-                <p class="favorite">
-                    <span id="favoriteCount"></span>
-                </p>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators" id="indicators">
+                    </ol>
+
+                    <div class="carousel-inner" role="listbox" id="picture">
+                    </div>
+
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" id="left_control">
+
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" id="right_control">
+
+                    </a>
+                </div>
             </div>
         </div>
         <div id="vp_bottom">
@@ -82,5 +130,6 @@
             </dl>
         </div>
     </div>
+    <div id="footer"></div>
 </body>
 </html>

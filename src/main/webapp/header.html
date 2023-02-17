@@ -10,13 +10,12 @@
         // acquire category data
         $.get("category/findCategory", {}, function (data) {
             // data: [{cid:1,cname:xxx},{},{}...]
-            var lis = '<li><a href="index.html">Homepage</a></li>';
+            var lis = '<li class="nav-active"><a href="index.html">Homepage</a></li>';
 
             for (let i = 0; i < data.length; i++) {
                 var li = '<li><a href="viewpoint_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>';
                 lis += li;
             }
-            lis += '<li><a href="favorite_rank.html">Favorite Rank</a></li>';
             $("#category").html(lis);
         });
 
@@ -26,32 +25,46 @@
             location.href="viewpoint_list.html?cid="+cid+"&vname="+vname;
         });
     });
-
-
 </script>
 
-<header id="header">
-    <div class="shortcut">
-        <!-- log out status  -->
-        <div class="login_out">
+<header id="header" class="container-fluid">
+    <div class="row">
+        <img src="img/top_banner.jpg" class="img-responsive">
+    </div>
+
+    <div class="row shortcut">
+        <div class="col-md-3 shortcut_right">
             <a href="login.html">Login</a>
             <a href="register.html">Register</a>
         </div>
-
-        <!-- log in status  -->
-        <div class="login">
-            <span id="span_username"></span>
-            <a href="myfavorite.html" class="collection">My Favorite</a>
+        <div class="col-md-6 shortcut_left">
             <a href="javascript:location.href='exitServlet';">Log out</a>
+            <span id="span_username"></span>
         </div>
     </div>
-    <div class="header_wrap">
-        <div class="search">
-            <input name="" id="search_input"  type="text" placeholder="Please enter viewpoint" class="search_input" autocomplete="off">
-            <a id="search_button" class="search_button">search</a>
-        </div>
+
+    <div class="row">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav" id="category">
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input class="form-control" name="" id="search_input" type="text" placeholder="Please enter viewpoint" aria-label="Search">
+                        <a id="search_button" class="btn btn-primary">search</a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
     </div>
-    <div class="nav">
-        <ul id="category" class="nav_ul"></ul>
-    </div>
+
 </header>
