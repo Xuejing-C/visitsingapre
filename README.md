@@ -28,7 +28,7 @@ a viewpoint infomation website
   * AJAX、jQuery: asynchronous data communication and html element manipulation
   * BeanUtils: encapsulate json data to Java Bean object
   * Servlet: controller
-    * BaseServlet: reduce the number of servlet, one module one servlet rather than one function one servlet.
+    * BaseServlet: reduce the number of servlet, one module one servlet rather than one type request one servlet.
   * Jackson: parse Java object into json data
 #### Business Tier (service)
   * Javamail: build and send activation email
