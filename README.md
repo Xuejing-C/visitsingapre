@@ -1,5 +1,7 @@
 # Visit Singapore
-### 1. Feature List
+### 1. Introduce
+a viewpoint infomation website
+### 2. Feature List
 #### Viewpoint Information Display
   * category data load
   * viewpoint list load and pagination
@@ -20,7 +22,7 @@
 #### Favorite Viewpoint
   * Add viewpoint to favorite
   * Number of favorite display
-### 2. Technology Stack
+### 3. Technology Stack
 #### Presentation Tier (web)
   * html、css、Bootstrap: display
   * AJAX、jQuery: asynchronous data communication and html element manipulation
